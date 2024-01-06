@@ -2,6 +2,7 @@
 # Import functions from calculator_1.py
 from calculator_1 import add, subtract, multiply, divide
 # Definition of the variables a and b
+if __name__ == "__main__":
 a = 10
 b = 5
 # Calling each of the imported functions
