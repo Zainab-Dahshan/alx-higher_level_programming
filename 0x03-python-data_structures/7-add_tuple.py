@@ -4,6 +4,7 @@ def add_tuple(tuple_a=(), tuple_b=()):
     tb = resolve(tuple_b)
     return (ta[0] + tb[0], ta[1] + tb[1])
 
+
 def resolve(t=()):
     tlen = len(t)
     if tlen == 0:
