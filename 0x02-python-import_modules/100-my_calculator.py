@@ -5,12 +5,10 @@ if __name__ != "__main__":
     exit()
 
 argc = len(argv) - 1
-# Get the number of command line arguments passed to the script
 if argc != 3:
     print("Usage: {:s} <a> <operator> <b>".format(argv[0]))
     exit(1)
 elif argv[2] == '+':
-# If the operator is '+', set 'func' to the 'add' function
     func = add
 elif argv[2] == '-':
     func = sub
