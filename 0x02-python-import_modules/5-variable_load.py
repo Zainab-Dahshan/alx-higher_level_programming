@@ -5,6 +5,4 @@ if __name__ != "__main__":
     exit()
 
 print("{:d}".format(a))
-# Print the value of 'a'. '{:d}' is a placeholder for an integer,
-# and '.format(a)' replaces the placeholder with the value of 'a'
-
+# Print the value of 'a'. '{:d}' is a placeholder for an integer, and '.format(a)' replaces the placeholder with the value of 'a'
