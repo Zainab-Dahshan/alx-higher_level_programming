@@ -8,4 +8,4 @@ def square_matrix_simple(matrix=[]):
         for j in range(len(matrix[i])):
             # Square the value and store it in the corresponding position in the result matrix
             result[i][j] = matrix[i][j] ** 2
-    return (result)
+    return result
