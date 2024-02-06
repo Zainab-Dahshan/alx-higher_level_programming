@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-""" my len function  """
+""" my files """
 
 
-def write_file(filename="", text=""):
-    """ length of function """
-    with open(filename, 'w', encoding="utf-8") as ff:
-        rr = ff.write(text)
-    return rr
+def read_file(filename=""):
+    """my func """
+    with open(filename, 'r', encoding="utf-8") as f:
+        print(f.read(), end="")
