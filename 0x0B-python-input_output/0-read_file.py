@@ -1,12 +1,8 @@
+#!/usr/bin/python3
 def read_file(filename=""):
-    if filename:
-        try:
-            with open(filename, 'r', encoding='utf-8') as file:
-                print(file.read())
-        except FileNotFoundError:
-            print("File not found.")
-    else:
-        print("Please provide a valid file name.")
-
-# Example usage:
-# read_file('example.txt')
+    """read file contents
+    Args:
+        filename(str): filename
+    """
+    with open(filename, mode="r", encoding="utf-8") as a_file:
+        print(a_file.read(), end="")
