@@ -1,26 +1,29 @@
 #!/usr/bin/python3
-"""
-Script that lists all State objects that contain the letter a from the database
-Using module SQLAlchemy
-"""
+# prints the State object with name input
 
-from model_state import Base, State
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sys import argv
 
 if __name__ == "__main__":
-    # create an engine
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(
-        argv[1], argv[2], argv[3]), pool_pre_ping=True)
-    # create a configured "Session" class
-    Session = sessionmaker(bind=engine)
-    # create a Session
-    session = Session()
-    Base.metadata.create_all(engine)
+    from model_state import Base, State
+    from sys import argv
+    from sqlalchemy.engine.url import URL
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import Session
 
-    s_tate = session.query(State).filter(State.name.like('%a%'))\
-                                 .order_by(State.id).all()
-    for state in s_tate:
-        print("{}: {}".format(state.id, state.name))
-    session.close()
+    db = {'drivername': 'mysql+mysqldb',
+          'host': 'localhost',
+          'port': '3306',
+          'username': argv[1],
+          'password': argv[2],
+          'database': argv[3]}
+
+    url = URL(**db)
+    engine = create_engine(url, pool_pre_ping=True)
+    Base.metadata.create_all(engine)
+    session = Session(engine)
+
+    sobj = (argv[4], )
+    try:
+        state = session.query(State).filter(State.name == sobj).one_or_none()
+        print("{}".format(state.id))
+    except:
+        print("Not found")
