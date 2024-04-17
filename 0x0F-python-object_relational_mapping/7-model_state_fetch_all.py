@@ -1,21 +1,21 @@
 #!/usr/bin/python3
 """
-Python file that contains the class definition of a State and an instance
+Lists all State objects from the database hbtn_0e_6_usa.
+Usage: ./7-model_state_fetch_all.py <mysql username> /
+                                     <mysql password> /
+                                     <database name>
 """
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+import sys
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from model_state import State
 
-Base = declarative_base()
+if __name__ == "__main__":
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
 
-
-class State(Base):
-    """
-    State class that inherits from Base
-
-    Attributes:
-        id: Id state
-        name: Name of state
-    """
-    __tablename__ = "states"
-    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    name = Column(String(128), nullable=False)
+    for state in session.query(State).order_by(State.id):
+        print("{}: {}".format(state.id, state.name))
