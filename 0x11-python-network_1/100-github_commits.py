@@ -1,14 +1,24 @@
 #!/usr/bin/python3
-"""A script that:
-- takes your GitHub credentials (username and password)
-- uses the GitHub API to display your id
-"""
+"""Lists the 10 most recent commits on a given GitHub repository."""
+
 import sys
 import requests
-from requests.auth import HTTPBasicAuth
 
+def get_recent_commits(owner, repo):
+    url = f"https://api.github.com/repos/{owner}/{repo}/commits"
+    r = requests.get(url)
+    if r.status_code == 200:
+        commits = r.json()
+        for i in range(min(10, len(commits))):
+            print(f"{commits[i].get('sha')}: {commits[i].get('commit').get('author').get('name')}")
+    else:
+        print(f"Error: {r.status_code} - {r.text}")
 
 if __name__ == "__main__":
-    auth = HTTPBasicAuth(sys.argv[1], sys.argv[2])
-    r = requests.get("https://api.github.com/user", auth=auth)
-    print(r.json().get("id"))
+    if len(sys.argv) != 3:
+        print("Usage: python script.py <owner> <repo>")
+        sys.exit(1)
+
+    owner = sys.argv[1]
+    repo = sys.argv[2]
+    get_recent_commits(owner, repo)
